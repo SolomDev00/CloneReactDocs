@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap");
+
+* {
+  font-family: "Rubik", sans-serif;
+}
+
+button {
+  transition: border-color 0.25s;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto;
+}
+
+@media (prefers-color-schema: light) {
+  :root {
+    color: #213547;
+    background-color: #fff;
+  }
+}
+
+nav .active {
+  color: #149eca;
+}
+
+.learn-layout aside nav .active {
+  background-color: #283541;
+  color: #149eca;
+}
+
+.root-layout .app-navbar .active,
+.learn-layout .app-navbar .active {
+  background-color: #283541;
+  color: #149eca;
+  border-radius: 1.3rem;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
