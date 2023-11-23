@@ -1,7 +1,10 @@
+// import { useLocation } from "react-router-dom";
 import Button from "../../components/schema/Button";
 import Input from "../../components/schema/Input";
 
 const LoginPage = () => {
+  // const location = useLocation();
+
   return (
     <div>
       <h2 className="text-center mb-3">Login to Contribute</h2>

@@ -1,5 +1,4 @@
 import {
-  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -14,34 +13,58 @@ import ThinkingInReactPage from "../views/learn/ThinkingInReact";
 import InstallationPage from "../views/learn/Installation";
 import ContributePage from "../views/Contribute";
 import LoginPage from "../views/Auth/Login";
+import ProtectedRoute from "../views/Auth/ProtectedRoute";
+// import ErrorRouteHandler from "../components/errors/ErrorRouteHandler";
+import ErrorHandler from "../components/errors/ErrorRouteHandler";
 
-const isLoggedIn = false;
+const isLoggedIn = true;
+const userData: { email: string } | null = isLoggedIn
+  ? { email: "email@gmail.com" }
+  : null;
 
 const routers = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* Root Layout */}
-      <Route path="/" element={<RootLayout />}>
+      <Route path="/" element={<RootLayout />} errorElement={<ErrorHandler />}>
         <Route index element={<HomePage />} />
-        <Route path="about" element={<AboutPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="about" element={<AboutPage />} />
         <Route
-          path="login"
+          path="contribute"
           element={
-            !isLoggedIn ? <LoginPage /> : <Navigate to={"/contribute"} />
+            <ProtectedRoute
+              isAllowed={isLoggedIn}
+              redircetPath="/login"
+              data={userData}
+            >
+              <ContributePage />
+            </ProtectedRoute>
           }
         />
         <Route
-          path="contribute"
-          element={isLoggedIn ? <ContributePage /> : <Navigate to={"/login"} />}
+          path="login"
+          element={
+            <ProtectedRoute
+              isAllowed={!isLoggedIn}
+              redircetPath="/contribute"
+              data={userData}
+            >
+              <LoginPage />
+            </ProtectedRoute>
+          }
         />
       </Route>
+
       {/* Learn Layout */}
       <Route path="/learn" element={<LearnLayout />}>
         <Route index element={<QuickStartPage />} />
-        <Route path="installation" element={<InstallationPage />} />
         <Route path="thinking-in-react" element={<ThinkingInReactPage />} />
+        <Route path="installation" element={<InstallationPage />} />
       </Route>
+
+      {/* Page Not Found */}
+      {/* <Route path="*" element={<PageNotFound />} /> */}
     </>
   )
 );
