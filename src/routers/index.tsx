@@ -14,8 +14,8 @@ import InstallationPage from "../views/learn/Installation";
 import ContributePage from "../views/Contribute";
 import LoginPage from "../views/Auth/Login";
 import ProtectedRoute from "../views/Auth/ProtectedRoute";
-// import ErrorRouteHandler from "../components/errors/ErrorRouteHandler";
 import ErrorHandler from "../components/errors/ErrorRouteHandler";
+import PageNotFound from "../views/PageNotFound";
 
 const isLoggedIn = true;
 const userData: { email: string } | null = isLoggedIn
@@ -64,7 +64,7 @@ const routers = createBrowserRouter(
       </Route>
 
       {/* Page Not Found */}
-      {/* <Route path="*" element={<PageNotFound />} /> */}
+      <Route path="*" element={<PageNotFound />} />
     </>
   )
 );
